@@ -1,0 +1,6 @@
+<resources>
+  <string name="app_name">notie</string>
+  <string name="capitalized_app_name">Notie</string>
+  <string name="app_tagline">hora ke</string>
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
