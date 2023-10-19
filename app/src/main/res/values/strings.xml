@@ -2,5 +2,6 @@
   <string name="app_name">notie</string>
   <string name="capitalized_app_name">Notie</string>
   <string name="app_tagline">hora ke</string>
+  <string name="web_client_id">465041847661-8asvvrh1rmhh7t8p4ailicm7e9tmg1he.apps.googleusercontent.com</string>
   <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

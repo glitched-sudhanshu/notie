@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "465041847661",
+    "project_id": "notie-547d0",
+    "storage_bucket": "notie-547d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465041847661:android:b9beeee3f9f36aa692d664",
+        "android_client_info": {
+          "package_name": "com.example.notie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQLTgBl37I3kbC5eKbBSTPEnoAPm_Vex0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
