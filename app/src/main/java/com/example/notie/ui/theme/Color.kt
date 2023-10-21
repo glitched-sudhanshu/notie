@@ -17,8 +17,11 @@ val BrightTeal = Color(0XFF41F4E2)
 val Teal700 = Color(0XFF018786)
 val Black = Color(0XFF000000)
 val White = Color(0xFFFFFFFF)
-val LightBlue = Color(0xFFFFFFFF)
-val WhiteBlue = Color(0xFFC3D9EC)
+val DarkPaleBlue = Color(0xFF345D83)
+val LightPaleBlue = Color(0xFF4B7FB0)
+val LightBlue = Color(0xFF72A2FA)
 val Grey = Color(0x4DFFFFFF)
+val FacebookBlue = Color(0xFF3A549E)
+val BackgroundGrey = Color(0xFFECEDEE)
 
 

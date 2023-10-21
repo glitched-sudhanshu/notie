@@ -19,17 +19,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.notie.R
-import com.example.notie.ui.NeonLine
+import com.example.notie.ui.components.NeonLine
 import com.example.notie.ui.theme.AudioWideFont
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-  navigateToListScreen: () -> Unit
+  navigateToListScreen: () -> Unit = {},
+  navigateToOnboardingScreen: () -> Unit
 ) {
   LaunchedEffect(key1 = true) {
     delay(1500L)
-    navigateToListScreen()
+    navigateToOnboardingScreen()
   }
 
   Column(
@@ -66,5 +67,5 @@ fun SplashScreen(
 @Composable
 @Preview
 fun SplashScreenPreview() {
-  SplashScreen(navigateToListScreen = {})
+  SplashScreen(navigateToListScreen = {}, navigateToOnboardingScreen = {})
 }

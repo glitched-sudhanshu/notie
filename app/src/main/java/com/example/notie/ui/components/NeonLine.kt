@@ -1,4 +1,4 @@
-package com.example.notie.ui
+package com.example.notie.ui.components
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween

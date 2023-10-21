@@ -7,6 +7,9 @@ object Constants {
   const val NOTES_DATABASE_TABLE = "notes_table"
 
   const val SPLASH_SCREEN = "splash"
+  const val ONBOARDING_SCREEN = "onboarding"
+  const val AUTH = "auth"
+  const val NOTES_FEATURE = "notes_feature"
   const val LIST_SCREEN = "list/{action}"
   const val NOTE_SCREEN = "note/{taskId}"
 

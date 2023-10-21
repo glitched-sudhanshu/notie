@@ -19,6 +19,18 @@ class Screens(navHostController: NavHostController) {
     navHostController.navigate("note/$taskId")
   }
 
+  val onboarding: () -> Unit = {
+    navHostController.navigate("onboarding")
+  }
+
+  val login: () -> Unit = {
+    navHostController.navigate("login")
+  }
+
+  val signup: () -> Unit = {
+    navHostController.navigate("signup")
+  }
+
   val note: (Action) -> Unit = { action ->
     navHostController.navigate("list/${action.name}") {
       popUpTo(LIST_SCREEN) {

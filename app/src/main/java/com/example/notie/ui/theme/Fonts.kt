@@ -9,3 +9,8 @@ import com.example.notie.R
 object AudioWideFont{
   val fontFamily = FontFamily(Font(R.font.audiowide, FontWeight.Normal))
 }
+
+object PlaypenSans{
+  val regular = FontFamily(Font(R.font.playpen_sans_regular, FontWeight.Normal))
+  val thin = FontFamily(Font(R.font.playpen_sans_thin, FontWeight.Thin))
+}
