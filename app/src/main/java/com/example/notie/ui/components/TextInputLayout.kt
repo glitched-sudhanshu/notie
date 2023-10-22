@@ -1,10 +1,16 @@
 package com.example.notie.ui.components
 
+import android.widget.Toast
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Checkbox
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
@@ -16,17 +22,24 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.notie.R
+import com.example.notie.ui.theme.AudioWideFont
 import com.example.notie.ui.theme.DarkPaleBlue
 import com.example.notie.ui.theme.PlaypenSans
 
@@ -61,7 +74,8 @@ fun TextInputLayout(
       backgroundColor = Color.White
     ),
     singleLine = true,
-    keyboardOptions = KeyboardOptions.Default,
+    maxLines = 1,
+    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
     value = textValue.value, onValueChange = {
       textValue.value = it
     },
@@ -76,7 +90,8 @@ fun TextInputLayout(
 }
 
 @Composable
-fun PasswordInputLayout(modifier: Modifier = Modifier, labelString: String) {
+fun PasswordInputLayout(modifier: Modifier = Modifier, labelString: String, isLastField: Boolean) {
+  val localFocusManager = LocalFocusManager.current
   val passwordText = remember {
     mutableStateOf("")
   }
@@ -104,7 +119,14 @@ fun PasswordInputLayout(modifier: Modifier = Modifier, labelString: String) {
       backgroundColor = Color.White
     ),
     singleLine = true,
-    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+    maxLines = 1,
+    keyboardOptions = if (!isLastField) KeyboardOptions(
+      imeAction = ImeAction.Next,
+      keyboardType = KeyboardType.Password
+    ) else KeyboardOptions(imeAction = ImeAction.Done, keyboardType = KeyboardType.Password),
+    keyboardActions = KeyboardActions {
+      if (isLastField) localFocusManager.clearFocus()
+    },
     onValueChange = {
       passwordText.value = it
     },
@@ -133,6 +155,35 @@ fun PasswordInputLayout(modifier: Modifier = Modifier, labelString: String) {
 
 }
 
+@Composable
+fun CheckboxComponent(value: AnnotatedString, modifier: Modifier = Modifier) {
+  Row(
+    modifier = modifier
+      .heightIn(56.dp),
+    verticalAlignment = Alignment.CenterVertically,
+  ) {
+    val checkboxState = remember {
+      mutableStateOf(false)
+    }
+
+    Checkbox(checked = checkboxState.value, onCheckedChange = {
+      checkboxState.value = !checkboxState.value
+    })
+    val context = LocalContext.current
+    ClickableText(
+      text = value,
+      style = TextStyle(fontFamily = AudioWideFont.fontFamily, fontSize = 14.sp),
+      onClick = { offset ->
+        value.getStringAnnotations(offset, offset).firstOrNull()?.also { span ->
+          if (span.item == "Terms & Conditions") {
+            Toast.makeText(context, "Terms & Conditions shown!", Toast.LENGTH_SHORT).show()
+          }
+        }
+      },
+    )
+  }
+}
+
 @Preview
 @Composable
 fun TextInputLayoutPreview() {
@@ -142,5 +193,5 @@ fun TextInputLayoutPreview() {
 @Preview
 @Composable
 fun PasswordInputLayoutPreview() {
-  PasswordInputLayout(Modifier, "password")
+  PasswordInputLayout(Modifier, "password", false)
 }

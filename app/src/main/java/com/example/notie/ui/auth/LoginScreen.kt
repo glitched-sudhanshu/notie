@@ -78,7 +78,7 @@ fun LoginScreen(
       }
       .fillMaxWidth()
       .padding(horizontal = 60.dp, vertical = 10.dp),
-      labelString = stringResource(id = R.string.password))
+      labelString = stringResource(id = R.string.password), isLastField = true)
     Button(
       onClick = { /*TODO*/ },
       modifier = Modifier
@@ -168,7 +168,7 @@ fun LoginScreen(
           .offset(x = (-14).dp),
         tint = Color.Unspecified
       )
-      androidx.compose.material3.Text(
+      Text(
         text = stringResource(R.string.signin_with_gmail),
         fontFamily = PlaypenSans.regular,
         fontWeight = FontWeight.Bold,

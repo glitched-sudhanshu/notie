@@ -24,4 +24,6 @@
   <string name="dob_txt">Date of Birth</string>
   <string name="occupation_txt">Occupation</string>
   <string name="confirm_password">Confirm password</string>
+  <string name="agree_to">"Agree to "</string>
+  <string name="terms_and_conditions_txt">Terms &amp; Conditions</string>
 </resources>

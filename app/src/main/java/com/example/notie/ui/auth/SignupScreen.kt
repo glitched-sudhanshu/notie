@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.notie.R
 import com.example.notie.ui.components.AppName
+import com.example.notie.ui.components.CheckboxComponent
 import com.example.notie.ui.components.PasswordInputLayout
 import com.example.notie.ui.components.TextInputLayout
 import com.example.notie.ui.theme.BackgroundGrey
@@ -41,12 +43,12 @@ fun SignupScreen(
   Column(modifier = Modifier
     .fillMaxSize()
     .background(color = BackgroundGrey)
-  .verticalScroll(rememberScrollState())){
+    .verticalScroll(rememberScrollState())){
     ConstraintLayout(
       modifier = Modifier
         .fillMaxSize()
     ) {
-      val (appName, signUpTxt, usernameTil, phoneNoTil, dobTil, emailTil, occupationTil, passwordTil, confirmPasswordTil, withEmailBtn, signInBtn) = createRefs()
+      val (appName, signUpTxt, usernameTil, phoneNoTil, dobTil, emailTil, occupationTil, passwordTil, confirmPasswordTil, tNcCheckbox, withEmailBtn, signInBtn) = createRefs()
       Box(modifier = Modifier.constrainAs(appName) {
         linkTo(start = parent.start, end = parent.end)
         linkTo(top = parent.top, bottom = parent.bottom, bias = .05f)
@@ -120,7 +122,7 @@ fun SignupScreen(
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
-        labelString = stringResource(id = R.string.password))
+        labelString = stringResource(id = R.string.password), isLastField = false)
       //confirm password
       PasswordInputLayout(modifier = Modifier
         .constrainAs(confirmPasswordTil) {
@@ -129,7 +131,26 @@ fun SignupScreen(
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
-        labelString = stringResource(id = R.string.confirm_password))
+        labelString = stringResource(id = R.string.confirm_password), isLastField = true)
+
+      val agreeToText = stringResource(id = R.string.agree_to)
+      val tncText = stringResource(id = R.string.terms_and_conditions_txt)
+
+      val checkboxString = buildAnnotatedString {
+        withStyle(style = SpanStyle(color = Color.Gray)) {
+          pushStringAnnotation(tag = agreeToText, annotation = agreeToText)
+          append(agreeToText)
+        }
+        withStyle(style = SpanStyle(color = LightBlue)) {
+          pushStringAnnotation(tag = tncText, annotation = tncText)
+          append(tncText)
+        }
+      }
+
+      CheckboxComponent(value = checkboxString, modifier = Modifier.constrainAs(tNcCheckbox){
+        linkTo(start = parent.start, end = parent.end)
+        top.linkTo(confirmPasswordTil.bottom, margin = 20.dp)
+      })
 
       Button(
         onClick = { /*TODO*/ },
@@ -138,7 +159,7 @@ fun SignupScreen(
           .padding(horizontal = 60.dp, vertical = 10.dp)
           .constrainAs(withEmailBtn) {
             linkTo(start = parent.start, end = parent.end)
-            top.linkTo(confirmPasswordTil.bottom, margin = 20.dp)
+            top.linkTo(tNcCheckbox.bottom, margin = 10.dp)
           },
         elevation = ButtonDefaults.buttonElevation(8.dp),
         colors = ButtonDefaults.buttonColors(containerColor = LightBlue)
