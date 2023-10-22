@@ -2,6 +2,7 @@ package com.example.notie.navigation
 
 import androidx.navigation.NavHostController
 import com.example.notie.utils.Action
+import com.example.notie.utils.Constants.AUTH
 import com.example.notie.utils.Constants.LIST_SCREEN
 import com.example.notie.utils.Constants.SPLASH_SCREEN
 
@@ -20,7 +21,11 @@ class Screens(navHostController: NavHostController) {
   }
 
   val onboarding: () -> Unit = {
-    navHostController.navigate("onboarding")
+    navHostController.navigate(AUTH){
+      popUpTo(SPLASH_SCREEN){
+        inclusive = true
+      }
+    }
   }
 
   val login: () -> Unit = {

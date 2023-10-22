@@ -2,16 +2,14 @@ package com.example.notie.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navigation
 import com.example.notie.navigation.destinations.listComposable
+import com.example.notie.navigation.destinations.loginComposable
 import com.example.notie.navigation.destinations.noteComposable
 import com.example.notie.navigation.destinations.onboardingComposable
+import com.example.notie.navigation.destinations.signupComposable
 import com.example.notie.navigation.destinations.splashComposable
 import com.example.notie.utils.Constants.AUTH
 import com.example.notie.utils.Constants.LIST_SCREEN
@@ -37,11 +35,12 @@ fun SetupNavigation(
         navigateToLoginScreen = screen.login,
         navigateToSignUpScreen = screen.signup
       )
+      loginComposable(navigateToSignUpScreen = screen.signup)
+      signupComposable(navigateToLoginScreen = screen.login)
     }
-    navigation(startDestination = LIST_SCREEN, route = NOTES_FEATURE){
+    navigation(startDestination = LIST_SCREEN, route = NOTES_FEATURE) {
       listComposable(navigateToTaskScreen = screen.list)
       noteComposable(navigateToListScreen = screen.note)
     }
-
   }
 }

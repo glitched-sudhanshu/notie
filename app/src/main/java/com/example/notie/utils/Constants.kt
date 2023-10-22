@@ -8,6 +8,8 @@ object Constants {
 
   const val SPLASH_SCREEN = "splash"
   const val ONBOARDING_SCREEN = "onboarding"
+  const val LOGIN_SCREEN = "login"
+  const val SIGNUP_SCREEN = "signup"
   const val AUTH = "auth"
   const val NOTES_FEATURE = "notes_feature"
   const val LIST_SCREEN = "list/{action}"
