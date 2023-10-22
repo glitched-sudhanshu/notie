@@ -10,6 +10,7 @@ object Constants {
   const val ONBOARDING_SCREEN = "onboarding"
   const val LOGIN_SCREEN = "login"
   const val SIGNUP_SCREEN = "signup"
+  const val FORGET_PASSWORD_SCREEN = "forget_password"
   const val AUTH = "auth"
   const val NOTES_FEATURE = "notes_feature"
   const val LIST_SCREEN = "list/{action}"

@@ -39,7 +39,8 @@ import com.example.notie.ui.theme.PlaypenSans
 
 @Composable
 fun LoginScreen(
-  navigateToSignUpScreen: () -> Unit
+  navigateToSignUpScreen: () -> Unit,
+  navigateToForgetPasswordScreen: () -> Unit
 ) {
   ConstraintLayout(
     modifier = Modifier
@@ -91,14 +92,14 @@ fun LoginScreen(
       elevation = ButtonDefaults.buttonElevation(8.dp),
       colors = ButtonDefaults.buttonColors(containerColor = LightBlue)
     ) {
-      androidx.compose.material3.Text(
+      Text(
         text = stringResource(R.string.sign_in),
         fontFamily = PlaypenSans.regular,
         fontWeight = FontWeight.Bold,
         color = Color.White
       )
     }
-    TextButton(onClick = { /*TODO*/ }, modifier = Modifier.constrainAs(forgetPasswordBtn) {
+    TextButton(onClick = { navigateToForgetPasswordScreen() }, modifier = Modifier.constrainAs(forgetPasswordBtn) {
       linkTo(start = parent.start, end = parent.end)
       top.linkTo(withEmailBtn.bottom)
     }) {
@@ -196,5 +197,5 @@ fun LoginScreen(
 @Preview
 @Composable
 fun PreviewLoginScreen() {
-  LoginScreen({})
+  LoginScreen({}, {})
 }

@@ -8,10 +8,13 @@ import com.example.notie.utils.Constants.SPLASH_SCREEN
 fun NavGraphBuilder.splashComposable(
   navigateToListScreen: () -> Unit,
   navigateToOnboardingScreen: () -> Unit
-){
+) {
   composable(
     route = SPLASH_SCREEN,
-  ){
-     SplashScreen(navigateToListScreen = navigateToListScreen, navigateToOnboardingScreen = navigateToOnboardingScreen)
+  ) {
+    SplashScreen(
+      navigateToListScreen = navigateToListScreen,
+      navigateToOnboardingScreen = navigateToOnboardingScreen
+    )
   }
 }

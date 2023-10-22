@@ -16,9 +16,22 @@ class Screens(navHostController: NavHostController) {
     }
   }
 
+  val note: (Action) -> Unit = { action ->
+    navHostController.navigate("list/${action.name}") {
+      popUpTo(LIST_SCREEN) {
+        inclusive = true
+      }
+    }
+  }
+
   val list: (Int) -> Unit = { taskId ->
     navHostController.navigate("note/$taskId")
   }
+
+
+  /**
+  Auth screens
+   **/
 
   val onboarding: () -> Unit = {
     navHostController.navigate(AUTH){
@@ -36,11 +49,8 @@ class Screens(navHostController: NavHostController) {
     navHostController.navigate("signup")
   }
 
-  val note: (Action) -> Unit = { action ->
-    navHostController.navigate("list/${action.name}") {
-      popUpTo(LIST_SCREEN) {
-        inclusive = true
-      }
-    }
+  val forgetPassword: () -> Unit = {
+    navHostController.navigate("forget_password")
   }
+
 }

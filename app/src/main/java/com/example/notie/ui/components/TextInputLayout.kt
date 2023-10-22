@@ -11,6 +11,8 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
+import androidx.compose.material3.CheckboxColors
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
@@ -41,14 +43,19 @@ import androidx.compose.ui.unit.sp
 import com.example.notie.R
 import com.example.notie.ui.theme.AudioWideFont
 import com.example.notie.ui.theme.DarkPaleBlue
+import com.example.notie.ui.theme.LightPaleBlue
 import com.example.notie.ui.theme.PlaypenSans
 
 @Composable
 fun TextInputLayout(
   modifier: Modifier = Modifier,
   labelString: String,
-  @DrawableRes iconId: Int = 0
+  @DrawableRes iconId: Int = 0,
+  isLastField: Boolean = false
 ) {
+
+  val localFocusManager = LocalFocusManager.current
+  
   val textValue = remember {
     mutableStateOf("")
   }
@@ -75,7 +82,12 @@ fun TextInputLayout(
     ),
     singleLine = true,
     maxLines = 1,
-    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+    keyboardOptions = if (!isLastField) KeyboardOptions(imeAction = ImeAction.Next) else KeyboardOptions(
+      imeAction = ImeAction.Done
+    ),
+    keyboardActions = KeyboardActions {
+      if (isLastField) localFocusManager.clearFocus()
+    },
     value = textValue.value, onValueChange = {
       textValue.value = it
     },
@@ -166,9 +178,16 @@ fun CheckboxComponent(value: AnnotatedString, modifier: Modifier = Modifier) {
       mutableStateOf(false)
     }
 
-    Checkbox(checked = checkboxState.value, onCheckedChange = {
-      checkboxState.value = !checkboxState.value
-    })
+    Checkbox(
+      checked = checkboxState.value, onCheckedChange = {
+        checkboxState.value = !checkboxState.value
+      },
+      colors = CheckboxDefaults.colors(
+        checkedColor = Color.White,
+        uncheckedColor = Color.White,
+        checkmarkColor = LightPaleBlue
+      )
+    )
     val context = LocalContext.current
     ClickableText(
       text = value,

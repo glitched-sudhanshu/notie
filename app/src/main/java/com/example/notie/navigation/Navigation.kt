@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navigation
+import com.example.notie.navigation.destinations.forgetPasswordComposable
 import com.example.notie.navigation.destinations.listComposable
 import com.example.notie.navigation.destinations.loginComposable
 import com.example.notie.navigation.destinations.noteComposable
@@ -35,8 +36,9 @@ fun SetupNavigation(
         navigateToLoginScreen = screen.login,
         navigateToSignUpScreen = screen.signup
       )
-      loginComposable(navigateToSignUpScreen = screen.signup)
+      loginComposable(navigateToSignUpScreen = screen.signup, navigateToForgetPasswordScreen = screen.forgetPassword)
       signupComposable(navigateToLoginScreen = screen.login)
+      forgetPasswordComposable()
     }
     navigation(startDestination = LIST_SCREEN, route = NOTES_FEATURE) {
       listComposable(navigateToTaskScreen = screen.list)

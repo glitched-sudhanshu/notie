@@ -26,4 +26,7 @@
   <string name="confirm_password">Confirm password</string>
   <string name="agree_to">"Agree to "</string>
   <string name="terms_and_conditions_txt">Terms &amp; Conditions</string>
+  <string name="reset_password">Reset Password</string>
+  <string name="reset_password_description_text">Enter the email address you used when you joined and we\'ll send you a link to reset your password.</string>
+  <string name="request_password_reset">Request Password Reset</string>
 </resources>
