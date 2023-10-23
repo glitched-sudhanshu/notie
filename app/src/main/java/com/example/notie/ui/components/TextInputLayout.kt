@@ -12,7 +12,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material3.CheckboxColors
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
@@ -50,15 +49,12 @@ import com.example.notie.ui.theme.PlaypenSans
 fun TextInputLayout(
   modifier: Modifier = Modifier,
   labelString: String,
+  textValue: String,
+  changeTextValue: (String) -> Unit,
   @DrawableRes iconId: Int = 0,
   isLastField: Boolean = false
 ) {
-
   val localFocusManager = LocalFocusManager.current
-  
-  val textValue = remember {
-    mutableStateOf("")
-  }
 
   OutlinedTextField(
     label = {
@@ -88,8 +84,8 @@ fun TextInputLayout(
     keyboardActions = KeyboardActions {
       if (isLastField) localFocusManager.clearFocus()
     },
-    value = textValue.value, onValueChange = {
-      textValue.value = it
+    value = textValue, onValueChange = {
+      changeTextValue(it)
     },
     leadingIcon = {
       if (iconId != 0) Icon(
@@ -102,11 +98,14 @@ fun TextInputLayout(
 }
 
 @Composable
-fun PasswordInputLayout(modifier: Modifier = Modifier, labelString: String, isLastField: Boolean) {
+fun PasswordInputLayout(
+  modifier: Modifier = Modifier,
+  labelString: String,
+  passwordValue: String,
+  changePasswordValue: (String) -> Unit,
+  isLastField: Boolean
+) {
   val localFocusManager = LocalFocusManager.current
-  val passwordText = remember {
-    mutableStateOf("")
-  }
   val passwordVisibility = remember {
     mutableStateOf(false)
   }
@@ -119,7 +118,7 @@ fun PasswordInputLayout(modifier: Modifier = Modifier, labelString: String, isLa
         fontFamily = PlaypenSans.regular
       )
     },
-    value = passwordText.value,
+    value = passwordValue,
     modifier = modifier
       .fillMaxWidth(),
     shape = RoundedCornerShape(50),
@@ -140,7 +139,7 @@ fun PasswordInputLayout(modifier: Modifier = Modifier, labelString: String, isLa
       if (isLastField) localFocusManager.clearFocus()
     },
     onValueChange = {
-      passwordText.value = it
+      changePasswordValue(it)
     },
     leadingIcon = {
       Icon(
@@ -168,19 +167,16 @@ fun PasswordInputLayout(modifier: Modifier = Modifier, labelString: String, isLa
 }
 
 @Composable
-fun CheckboxComponent(value: AnnotatedString, modifier: Modifier = Modifier) {
+fun CheckboxComponent(value: AnnotatedString, modifier: Modifier = Modifier, checkboxState: Boolean, changeCheckboxState: () -> Unit) {
   Row(
     modifier = modifier
       .heightIn(56.dp),
     verticalAlignment = Alignment.CenterVertically,
   ) {
-    val checkboxState = remember {
-      mutableStateOf(false)
-    }
 
     Checkbox(
-      checked = checkboxState.value, onCheckedChange = {
-        checkboxState.value = !checkboxState.value
+      checked = checkboxState, onCheckedChange = {
+        changeCheckboxState()
       },
       colors = CheckboxDefaults.colors(
         checkedColor = Color.White,
@@ -206,11 +202,11 @@ fun CheckboxComponent(value: AnnotatedString, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun TextInputLayoutPreview() {
-  TextInputLayout(Modifier, "first name", R.drawable.ic_person)
+  TextInputLayout(Modifier, "first name", "", {}, R.drawable.ic_person)
 }
 
 @Preview
 @Composable
 fun PasswordInputLayoutPreview() {
-  PasswordInputLayout(Modifier, "password", false)
+  PasswordInputLayout(Modifier, "password", "", {}, false)
 }

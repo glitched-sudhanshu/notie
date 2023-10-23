@@ -14,6 +14,8 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -48,6 +50,13 @@ fun LoginScreen(
       .background(color = BackgroundGrey)
   ) {
     val (appName, signInTxt, emailTil, passwordTil, withEmailBtn, forgetPasswordBtn, divider, withFbBtn, withGmailBtn, signInBtn) = createRefs()
+    val email = remember {
+      mutableStateOf("")
+    }
+    val password = remember {
+      mutableStateOf("")
+    }
+
     Box(modifier = Modifier.constrainAs(appName) {
       linkTo(start = parent.start, end = parent.end)
       linkTo(top = parent.top, bottom = parent.bottom, bias = .10f)
@@ -71,7 +80,12 @@ fun LoginScreen(
       .fillMaxWidth()
       .padding(horizontal = 60.dp, vertical = 10.dp),
       labelString = stringResource(id = R.string.email_txt),
-      iconId = R.drawable.ic_mail)
+      textValue = email.value,
+      changeTextValue = {
+        email.value = it
+      },
+      iconId = R.drawable.ic_mail
+    )
     PasswordInputLayout(modifier = Modifier
       .constrainAs(passwordTil) {
         linkTo(start = parent.start, end = parent.end)
@@ -79,7 +93,12 @@ fun LoginScreen(
       }
       .fillMaxWidth()
       .padding(horizontal = 60.dp, vertical = 10.dp),
-      labelString = stringResource(id = R.string.password), isLastField = true)
+      passwordValue = password.value,
+      changePasswordValue = {
+        password.value = it
+      },
+      labelString = stringResource(id = R.string.password), isLastField = true
+    )
     Button(
       onClick = { /*TODO*/ },
       modifier = Modifier
@@ -99,10 +118,12 @@ fun LoginScreen(
         color = Color.White
       )
     }
-    TextButton(onClick = { navigateToForgetPasswordScreen() }, modifier = Modifier.constrainAs(forgetPasswordBtn) {
-      linkTo(start = parent.start, end = parent.end)
-      top.linkTo(withEmailBtn.bottom)
-    }) {
+    TextButton(
+      onClick = { navigateToForgetPasswordScreen() },
+      modifier = Modifier.constrainAs(forgetPasswordBtn) {
+        linkTo(start = parent.start, end = parent.end)
+        top.linkTo(withEmailBtn.bottom)
+      }) {
       Text(
         text = stringResource(id = R.string.forget_password),
         color = LightBlue,

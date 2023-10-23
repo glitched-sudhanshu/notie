@@ -13,11 +13,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
@@ -40,15 +41,28 @@ import com.example.notie.ui.theme.PlaypenSans
 fun SignupScreen(
   navigateToLoginScreen: () -> Unit,
 ) {
-  Column(modifier = Modifier
-    .fillMaxSize()
-    .background(color = BackgroundGrey)
-    .verticalScroll(rememberScrollState())){
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .background(color = BackgroundGrey)
+      .verticalScroll(rememberScrollState())
+  ) {
     ConstraintLayout(
       modifier = Modifier
         .fillMaxSize()
     ) {
+      val username = remember { mutableStateOf("") }
+      val mobileNo = remember { mutableStateOf("") }
+      val dateOfBirth = remember { mutableStateOf("") }
+      val occupation = remember { mutableStateOf("") }
+      val email = remember { mutableStateOf("") }
+      val password = remember { mutableStateOf("") }
+      val confirmPassword = remember { mutableStateOf("") }
+      val tncCheck = remember { mutableStateOf(false) }
+
       val (appName, signUpTxt, usernameTil, phoneNoTil, dobTil, emailTil, occupationTil, passwordTil, confirmPasswordTil, tNcCheckbox, withEmailBtn, signInBtn) = createRefs()
+
+
       Box(modifier = Modifier.constrainAs(appName) {
         linkTo(start = parent.start, end = parent.end)
         linkTo(top = parent.top, bottom = parent.bottom, bias = .05f)
@@ -64,7 +78,10 @@ fun SignupScreen(
           linkTo(start = parent.start, end = parent.end)
           top.linkTo(appName.bottom, margin = 40.dp)
         })
-      //username
+
+      /**
+       * Username
+       **/
       TextInputLayout(modifier = Modifier
         .constrainAs(usernameTil) {
           linkTo(start = parent.start, end = parent.end)
@@ -72,9 +89,16 @@ fun SignupScreen(
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
+        textValue = username.value,
+        changeTextValue = {
+          username.value = it
+        },
         labelString = stringResource(id = R.string.username_txt),
         iconId = R.drawable.ic_person)
-      //phone np.
+
+      /**
+       * Phone no
+       **/
       TextInputLayout(modifier = Modifier
         .constrainAs(phoneNoTil) {
           linkTo(start = parent.start, end = parent.end)
@@ -82,9 +106,16 @@ fun SignupScreen(
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
+        textValue = mobileNo.value,
+        changeTextValue = {
+          mobileNo.value = it
+        },
         labelString = stringResource(id = R.string.phone_txt),
         iconId = R.drawable.ic_phone)
-      //dob.
+
+      /**
+       * DOB
+       **/
       TextInputLayout(modifier = Modifier
         .constrainAs(dobTil) {
           linkTo(start = parent.start, end = parent.end)
@@ -92,9 +123,16 @@ fun SignupScreen(
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
+        textValue = dateOfBirth.value,
+        changeTextValue = {
+          dateOfBirth.value = it
+        },
         labelString = stringResource(id = R.string.dob_txt),
         iconId = R.drawable.ic_cake)
-      //occupation.
+
+      /**
+       * Occupation
+       **/
       TextInputLayout(modifier = Modifier
         .constrainAs(occupationTil) {
           linkTo(start = parent.start, end = parent.end)
@@ -102,9 +140,16 @@ fun SignupScreen(
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
+        textValue = occupation.value,
+        changeTextValue = {
+          occupation.value = it
+        },
         labelString = stringResource(id = R.string.occupation_txt),
         iconId = R.drawable.ic_money)
-      //email
+
+      /**
+       * Email
+       **/
       TextInputLayout(modifier = Modifier
         .constrainAs(emailTil) {
           linkTo(start = parent.start, end = parent.end)
@@ -112,9 +157,16 @@ fun SignupScreen(
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
+        textValue = email.value,
+        changeTextValue = {
+          email.value = it
+        },
         labelString = stringResource(id = R.string.email_txt),
         iconId = R.drawable.ic_mail)
-      //password
+
+      /**
+       * Password
+       **/
       PasswordInputLayout(modifier = Modifier
         .constrainAs(passwordTil) {
           linkTo(start = parent.start, end = parent.end)
@@ -122,8 +174,15 @@ fun SignupScreen(
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
+        passwordValue = password.value,
+        changePasswordValue = {
+          password.value = it
+        },
         labelString = stringResource(id = R.string.password), isLastField = false)
-      //confirm password
+
+      /**
+       * Confirm password
+       **/
       PasswordInputLayout(modifier = Modifier
         .constrainAs(confirmPasswordTil) {
           linkTo(start = parent.start, end = parent.end)
@@ -131,11 +190,17 @@ fun SignupScreen(
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
+        passwordValue = confirmPassword.value,
+        changePasswordValue = {
+          confirmPassword.value = it
+        },
         labelString = stringResource(id = R.string.confirm_password), isLastField = true)
-
       val agreeToText = stringResource(id = R.string.agree_to)
       val tncText = stringResource(id = R.string.terms_and_conditions_txt)
 
+      /**
+       * TnC checkbox
+       **/
       val checkboxString = buildAnnotatedString {
         withStyle(style = SpanStyle(color = Color.Gray)) {
           pushStringAnnotation(tag = agreeToText, annotation = agreeToText)
@@ -147,11 +212,18 @@ fun SignupScreen(
         }
       }
 
-      CheckboxComponent(value = checkboxString, modifier = Modifier.constrainAs(tNcCheckbox){
+      CheckboxComponent(value = checkboxString, modifier = Modifier.constrainAs(tNcCheckbox) {
         linkTo(start = parent.start, end = parent.end)
         top.linkTo(confirmPasswordTil.bottom, margin = 20.dp)
-      })
+      },
+        checkboxState = tncCheck.value,
+        changeCheckboxState = {
+          tncCheck.value = !tncCheck.value
+        })
 
+      /**
+       * Signup button
+       **/
       Button(
         onClick = { /*TODO*/ },
         modifier = Modifier
@@ -171,6 +243,10 @@ fun SignupScreen(
           color = Color.White
         )
       }
+
+      /**
+       * Sign in button
+       **/
       val annotatedString = buildAnnotatedString {
         withStyle(style = SpanStyle(color = Color.Gray)) {
           append(stringResource(id = R.string.already_have_an_account))
@@ -180,7 +256,13 @@ fun SignupScreen(
         }
       }
       TextButton(onClick = { navigateToLoginScreen() }, modifier = Modifier.constrainAs(signInBtn) {
-        linkTo(top = withEmailBtn.bottom, bottom = parent.bottom, bottomMargin = 10.dp, bias = 1.0f, topMargin = 30.dp)
+        linkTo(
+          top = withEmailBtn.bottom,
+          bottom = parent.bottom,
+          bottomMargin = 10.dp,
+          bias = 1.0f,
+          topMargin = 30.dp
+        )
         start.linkTo(parent.start)
         end.linkTo(parent.end)
       }) {
@@ -192,7 +274,6 @@ fun SignupScreen(
 
 @Preview
 @Composable
-fun PreviewSignUpScreen()
-{
+fun PreviewSignUpScreen() {
   SignupScreen({})
 }

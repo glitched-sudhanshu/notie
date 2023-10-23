@@ -8,6 +8,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -32,6 +34,9 @@ fun ForgetPasswordScreen() {
       .padding(top = 30.dp, bottom = 10.dp)
   ) {
     val (resetPwTitle, resetPwDesc, emailTil, resetPwBtn) = createRefs()
+    val email = remember {
+      mutableStateOf("")
+    }
 
     Text(
       modifier = Modifier.constrainAs(resetPwTitle) {
@@ -48,12 +53,21 @@ fun ForgetPasswordScreen() {
       modifier = Modifier.constrainAs(resetPwDesc) {
         linkTo(start = parent.start, end = parent.end, bias = 0f)
         top.linkTo(resetPwTitle.bottom, margin = 15.dp)
-      }, fontFamily = PlaypenSans.regular, color = Color.Gray, fontSize = 16.sp , text = stringResource(id = R.string.reset_password_description_text))
+      },
+      fontFamily = PlaypenSans.regular,
+      color = Color.Gray,
+      fontSize = 16.sp,
+      text = stringResource(id = R.string.reset_password_description_text)
+    )
 
     TextInputLayout(
       modifier = Modifier.constrainAs(emailTil) {
         linkTo(start = parent.start, end = parent.end, bias = 0f)
         top.linkTo(resetPwDesc.bottom, margin = 25.dp)
+      },
+      textValue = email.value,
+      changeTextValue = {
+        email.value = it
       },
       isLastField = true,
       labelString = stringResource(id = R.string.email_txt),
@@ -71,7 +85,7 @@ fun ForgetPasswordScreen() {
       elevation = ButtonDefaults.buttonElevation(8.dp),
       colors = ButtonDefaults.buttonColors(containerColor = LightBlue)
     ) {
-      androidx.compose.material.Text(
+      Text(
         text = stringResource(R.string.request_password_reset),
         fontFamily = PlaypenSans.regular,
         fontWeight = FontWeight.Bold,
@@ -83,7 +97,6 @@ fun ForgetPasswordScreen() {
 
 @Preview
 @Composable
-fun PreviewForgetPasswordScreen()
-{
+fun PreviewForgetPasswordScreen() {
   ForgetPasswordScreen()
 }
