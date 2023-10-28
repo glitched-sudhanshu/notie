@@ -12,6 +12,7 @@ import com.example.notie.navigation.destinations.noteComposable
 import com.example.notie.navigation.destinations.onboardingComposable
 import com.example.notie.navigation.destinations.signupComposable
 import com.example.notie.navigation.destinations.splashComposable
+import com.example.notie.ui.auth.GoogleAuthUiClient
 import com.example.notie.utils.Constants.AUTH
 import com.example.notie.utils.Constants.LIST_SCREEN
 import com.example.notie.utils.Constants.NOTES_FEATURE
@@ -20,7 +21,8 @@ import com.example.notie.utils.Constants.SPLASH_SCREEN
 
 @Composable
 fun SetupNavigation(
-  navHostController: NavHostController
+  navHostController: NavHostController,
+  googleAuthUiClient: GoogleAuthUiClient
 ) {
   val screen = remember(navHostController) {
     Screens(navHostController = navHostController)
@@ -29,16 +31,28 @@ fun SetupNavigation(
   NavHost(navController = navHostController, startDestination = SPLASH_SCREEN) {
     splashComposable(
       navigateToListScreen = screen.splash,
-      navigateToOnboardingScreen = screen.onboarding
+      navigateToOnboardingScreen = {navHostController.navigate(AUTH)}
     )
     navigation(startDestination = ONBOARDING_SCREEN, route = AUTH) {
-      onboardingComposable(
-        navigateToLoginScreen = screen.login,
-        navigateToSignUpScreen = screen.signup
+        onboardingComposable(
+          navigateToLoginScreen = screen.login,
+          navigateToSignUpScreen = screen.signup,
+          navigateToListScreen = { navHostController.navigate(NOTES_FEATURE) },
+          navHostController = navHostController,
+          googleAuthUiClient = googleAuthUiClient
+        )
+      loginComposable(
+        navigateToSignUpScreen = screen.signup,
+        navigateToForgetPasswordScreen = screen.forgetPassword,
+        navHostController = navHostController,
+        googleAuthUiClient = googleAuthUiClient
       )
-      loginComposable(navigateToSignUpScreen = screen.signup, navigateToForgetPasswordScreen = screen.forgetPassword)
-      signupComposable(navigateToLoginScreen = screen.login)
-      forgetPasswordComposable()
+      signupComposable(
+        navigateToLoginScreen = screen.login,
+        navHostController = navHostController
+      )
+      forgetPasswordComposable(
+        navHostController = navHostController)
     }
     navigation(startDestination = LIST_SCREEN, route = NOTES_FEATURE) {
       listComposable(navigateToTaskScreen = screen.list)

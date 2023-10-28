@@ -3,6 +3,7 @@ package com.example.notie.ui.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notie.data.AuthRepository
+import com.example.notie.data.models.Occupation
 import com.example.notie.data.models.User
 import com.example.notie.utils.ResourceV2
 import com.google.firebase.auth.FirebaseUser
@@ -28,6 +29,16 @@ class AuthViewModel @Inject constructor(private val repository: AuthRepository) 
     if(repository.currentUser != null){
       _loginFlow.value = ResourceV2.Success(repository.currentUser!!)
     }
+  }
+
+  fun createAccount(username: String, mobileNo : String, dateOfBirth : String, occupation: String, email: String, password: String)
+  {
+    val user = User(
+      userName = username,
+      phoneNumber = mobileNo,
+      email = email,
+      password = password
+    )
   }
 
   fun login(user: User) = viewModelScope.launch {

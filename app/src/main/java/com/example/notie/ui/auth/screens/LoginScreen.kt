@@ -1,4 +1,4 @@
-package com.example.notie.ui.auth
+package com.example.notie.ui.auth.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.notie.R
+import com.example.notie.ui.auth.SignInViewModel
 import com.example.notie.ui.components.AppName
 import com.example.notie.ui.components.PasswordInputLayout
 import com.example.notie.ui.components.TextInputLayout
@@ -42,7 +43,8 @@ import com.example.notie.ui.theme.PlaypenSans
 @Composable
 fun LoginScreen(
   navigateToSignUpScreen: () -> Unit,
-  navigateToForgetPasswordScreen: () -> Unit
+  navigateToForgetPasswordScreen: () -> Unit,
+  viewModel: SignInViewModel?
 ) {
   ConstraintLayout(
     modifier = Modifier
@@ -218,5 +220,5 @@ fun LoginScreen(
 @Preview
 @Composable
 fun PreviewLoginScreen() {
-  LoginScreen({}, {})
+  LoginScreen({}, {}, null)
 }

@@ -1,5 +1,6 @@
-package com.example.notie.ui.auth
+package com.example.notie.ui.auth.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,11 +15,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -28,7 +32,10 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.notie.R
+import com.example.notie.ui.auth.SignInState
+import com.example.notie.ui.auth.SignInViewModel
 import com.example.notie.ui.components.AppName
 import com.example.notie.ui.theme.BackgroundGrey
 import com.example.notie.ui.theme.DarkPaleBlue
@@ -41,7 +48,27 @@ import com.example.notie.ui.theme.PlaypenSans
 fun OnboardingScreen(
   navigateToSignUpScreen: () -> Unit,
   navigateToLoginScreen: () -> Unit,
+  navigateToListScreen: () -> Unit,
+  viewModel: SignInViewModel?,
+  onSignInClick: () -> Unit
 ) {
+  val signInState by viewModel!!.signInState.collectAsStateWithLifecycle()
+
+  val context = LocalContext.current
+  LaunchedEffect(key1 = signInState){
+    when(signInState)
+    {
+      is SignInState.Error -> {
+        Toast.makeText(context, (signInState as SignInState.Error).message.toString(), Toast.LENGTH_SHORT).show()
+      }
+
+      is SignInState.Success -> navigateToListScreen()
+
+      else -> {}
+    }
+  }
+
+
   ConstraintLayout(
     modifier = Modifier
       .fillMaxSize()
@@ -114,7 +141,7 @@ fun OnboardingScreen(
     }
 
     Button(
-      onClick = { /*TODO*/ },
+      onClick = { onSignInClick() },
       modifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp)
@@ -161,5 +188,5 @@ fun OnboardingScreen(
 @Preview
 @Composable
 fun PreviewOnboardingScreen() {
-  OnboardingScreen({}, {})
+  OnboardingScreen({}, {}, {}, null, {})
 }

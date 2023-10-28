@@ -1,4 +1,4 @@
-package com.example.notie.ui.auth
+package com.example.notie.ui.auth.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,13 +19,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.notie.R
+import com.example.notie.ui.auth.SignInViewModel
 import com.example.notie.ui.components.TextInputLayout
 import com.example.notie.ui.theme.BackgroundGrey
 import com.example.notie.ui.theme.LightBlue
 import com.example.notie.ui.theme.PlaypenSans
 
 @Composable
-fun ForgetPasswordScreen() {
+fun ForgetPasswordScreen(
+  viewModel: SignInViewModel?
+) {
   ConstraintLayout(
     modifier = Modifier
       .fillMaxSize()
@@ -98,5 +101,5 @@ fun ForgetPasswordScreen() {
 @Preview
 @Composable
 fun PreviewForgetPasswordScreen() {
-  ForgetPasswordScreen()
+  ForgetPasswordScreen(null)
 }

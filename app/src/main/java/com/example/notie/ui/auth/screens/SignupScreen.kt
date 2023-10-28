@@ -1,4 +1,4 @@
-package com.example.notie.ui.auth
+package com.example.notie.ui.auth.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -27,8 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.notie.R
+import com.example.notie.ui.auth.SignInViewModel
 import com.example.notie.ui.components.AppName
 import com.example.notie.ui.components.CheckboxComponent
+import com.example.notie.ui.components.DatePickerView
 import com.example.notie.ui.components.PasswordInputLayout
 import com.example.notie.ui.components.TextInputLayout
 import com.example.notie.ui.theme.BackgroundGrey
@@ -40,6 +42,7 @@ import com.example.notie.ui.theme.PlaypenSans
 @Composable
 fun SignupScreen(
   navigateToLoginScreen: () -> Unit,
+  viewModel: SignInViewModel?
 ) {
   Column(
     modifier = Modifier
@@ -78,7 +81,6 @@ fun SignupScreen(
           linkTo(start = parent.start, end = parent.end)
           top.linkTo(appName.bottom, margin = 40.dp)
         })
-
       /**
        * Username
        **/
@@ -94,8 +96,8 @@ fun SignupScreen(
           username.value = it
         },
         labelString = stringResource(id = R.string.username_txt),
-        iconId = R.drawable.ic_person)
-
+        iconId = R.drawable.ic_person
+      )
       /**
        * Phone no
        **/
@@ -111,25 +113,26 @@ fun SignupScreen(
           mobileNo.value = it
         },
         labelString = stringResource(id = R.string.phone_txt),
-        iconId = R.drawable.ic_phone)
-
+        iconId = R.drawable.ic_phone
+      )
       /**
        * DOB
        **/
-      TextInputLayout(modifier = Modifier
+      DatePickerView(modifier = Modifier
         .constrainAs(dobTil) {
           linkTo(start = parent.start, end = parent.end)
           top.linkTo(phoneNoTil.bottom, margin = 7.dp)
         }
         .fillMaxWidth()
         .padding(horizontal = 60.dp, vertical = 10.dp),
-        textValue = dateOfBirth.value,
-        changeTextValue = {
-          dateOfBirth.value = it
-        },
-        labelString = stringResource(id = R.string.dob_txt),
-        iconId = R.drawable.ic_cake)
-
+        iconId = R.drawable.ic_cake
+//        textValue = dateOfBirth.value,
+//        changeTextValue = {
+//          dateOfBirth.value = it
+//        },
+//        labelString = stringResource(id = R.string.dob_txt),
+//        iconId = R.drawable.ic_cake
+      )
       /**
        * Occupation
        **/
@@ -145,8 +148,8 @@ fun SignupScreen(
           occupation.value = it
         },
         labelString = stringResource(id = R.string.occupation_txt),
-        iconId = R.drawable.ic_money)
-
+        iconId = R.drawable.ic_money
+      )
       /**
        * Email
        **/
@@ -162,8 +165,8 @@ fun SignupScreen(
           email.value = it
         },
         labelString = stringResource(id = R.string.email_txt),
-        iconId = R.drawable.ic_mail)
-
+        iconId = R.drawable.ic_mail
+      )
       /**
        * Password
        **/
@@ -178,8 +181,8 @@ fun SignupScreen(
         changePasswordValue = {
           password.value = it
         },
-        labelString = stringResource(id = R.string.password), isLastField = false)
-
+        labelString = stringResource(id = R.string.password), isLastField = false
+      )
       /**
        * Confirm password
        **/
@@ -194,7 +197,8 @@ fun SignupScreen(
         changePasswordValue = {
           confirmPassword.value = it
         },
-        labelString = stringResource(id = R.string.confirm_password), isLastField = true)
+        labelString = stringResource(id = R.string.confirm_password), isLastField = true
+      )
       val agreeToText = stringResource(id = R.string.agree_to)
       val tncText = stringResource(id = R.string.terms_and_conditions_txt)
 
@@ -220,7 +224,6 @@ fun SignupScreen(
         changeCheckboxState = {
           tncCheck.value = !tncCheck.value
         })
-
       /**
        * Signup button
        **/
@@ -243,7 +246,6 @@ fun SignupScreen(
           color = Color.White
         )
       }
-
       /**
        * Sign in button
        **/
@@ -275,5 +277,5 @@ fun SignupScreen(
 @Preview
 @Composable
 fun PreviewSignUpScreen() {
-  SignupScreen({})
+  SignupScreen({}, null)
 }

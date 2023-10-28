@@ -8,7 +8,7 @@
   <string name="signup_with_email">Sign Up with Email</string>
   <string name="signup_with_facebook">Sign Up with Facebook</string>
   <string name="signin_with_facebook">Sign Up with Facebook</string>
-  <string name="signup_with_gmail">Sign In with Google</string>
+  <string name="signup_with_gmail">Sign Up with Google</string>
   <string name="signin_with_gmail">Sign In with Google</string>
   <string name="already_have_an_account">"Already have an account? "</string>
   <string name="sign_in">"Sign in"</string>
@@ -29,4 +29,7 @@
   <string name="reset_password">Reset Password</string>
   <string name="reset_password_description_text">Enter the email address you used when you joined and we\'ll send you a link to reset your password.</string>
   <string name="request_password_reset">Request Password Reset</string>
+  <string name="pick_date">Pick Date</string>
+  <string name="ok">Ok</string>
+  <string name="cancel">Cancel</string>
 </resources>

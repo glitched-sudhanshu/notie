@@ -1,4 +1,4 @@
-package com.example.notie.presentation.sign_in
+package com.example.notie.ui.auth
 
 import android.content.Context
 import android.content.Intent

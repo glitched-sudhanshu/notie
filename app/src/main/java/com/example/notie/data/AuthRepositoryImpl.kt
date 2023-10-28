@@ -9,7 +9,6 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
-
 class AuthRepositoryImpl @Inject constructor(
   private val firebaseAuth: FirebaseAuth
 ) : AuthRepository {

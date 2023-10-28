@@ -3,6 +3,7 @@ plugins {
   id("org.jetbrains.kotlin.android")
   id("kotlin-kapt")
   id("com.google.dagger.hilt.android")
+  id ("com.google.gms.google-services")
 }
 
 android {
@@ -66,6 +67,8 @@ dependencies {
   debugImplementation ("androidx.compose.ui:ui-tooling")
   debugImplementation ("androidx.compose.ui:ui-test-manifest")
   implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+  implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+  implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
 
   implementation ("androidx.compose.material:material:1.4.3")
 
@@ -89,4 +92,9 @@ dependencies {
   implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
   implementation("com.google.firebase:firebase-auth-ktx")
   implementation("com.google.android.gms:play-services-auth:20.7.0")
+  implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+
+ //date picker
+  implementation("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
 }
