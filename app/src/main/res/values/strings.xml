@@ -32,4 +32,6 @@
   <string name="pick_date">Pick Date</string>
   <string name="ok">Ok</string>
   <string name="cancel">Cancel</string>
+  <string name="profile_picture">Profile Picture</string>
+  <string name="add_new_note">Add New Note Button</string>
 </resources>

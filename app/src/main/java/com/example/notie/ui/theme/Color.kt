@@ -20,7 +20,7 @@ val White = Color(0xFFFFFFFF)
 val DarkPaleBlue = Color(0xFF345D83)
 val LightPaleBlue = Color(0xFF4B7FB0)
 val LightBlue = Color(0xFF72A2FA)
-val Grey = Color(0x4DFFFFFF)
+val Grey = Color(0xFFDEDEDF)
 val FacebookBlue = Color(0xFF3A549E)
 val BackgroundGrey = Color(0xFFECEDEE)
 
